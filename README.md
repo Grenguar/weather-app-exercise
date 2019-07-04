@@ -35,7 +35,7 @@ There are a few things you must do to get the app up and running. After that the
 
 + Either run the app locally (using `npm i && npm start`) or move to the next step.
 
-* Add **Dockerfile**'s in the *frontend* and the *backend* directories to run them virtually on any environment having [docker](https://www.docker.com/) installed. It should work by saying e.g. `docker build -t weatherapp_backend . && docker run --rm -i -p 9000:9000 --name weatherapp_backend -t weatherapp_backend`. If it doesn't, remember to check your api key first.
++ Add **Dockerfile**'s in the *frontend* and the *backend* directories to run them virtually on any environment having [docker](https://www.docker.com/) installed. It should work by saying e.g. `docker build -t weatherapp_backend . && docker run --rm -i -p 9000:9000 --name weatherapp_backend -t weatherapp_backend`. If it doesn't, remember to check your api key first.
 
 * Add a **docker-compose.yml** -file connecting the frontend and the backend, enabling running the app in a connected set of containers.
 

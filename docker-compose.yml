@@ -1,0 +1,13 @@
+version: '3'
+services: 
+  weatherapp_backend:
+    build: backend/
+    ports: 
+      - "9000:9000"
+
+  weatherapp_frontend:
+    build: frontend/
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - weatherapp_backend
