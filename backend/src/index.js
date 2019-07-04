@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const debug = require('debug')('weathermap');
 
 const Koa = require('koa');
@@ -19,7 +20,7 @@ const fetchWeather = async () => {
   const endpoint = `${mapURI}/weather?q=${targetCity}&appid=${appId}&`;
   const response = await fetch(endpoint);
 
-  return response ? response.json() : {}
+  return response ? response.json() : {};
 };
 
 router.get('/api/weather', async ctx => {
