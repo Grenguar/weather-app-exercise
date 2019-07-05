@@ -1,9 +1,12 @@
 
 FROM node:12.5-stretch-slim
 
-VOLUME /frontend
-COPY package*.json ./
-RUN npm install
-COPY . .
+RUN npm install webpack -g --ignore-optional
+RUN npm install webpack-dev-server -g --ignore-optional
+WORKDIR /app
+
+COPY . /app
+RUN npm install --ignore-optional
+CMD ["/usr/local/bin/webpack-dev-server","--host", "0.0.0.0", "--config", "webpack.config.js", "--progress", "--inline", "--colors"]
+
 EXPOSE 8000
-CMD [ "npm", "start" ]
