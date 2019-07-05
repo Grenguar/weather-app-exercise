@@ -1,4 +1,6 @@
-const dotenv = require('dotenv').config();
+// eslint-disable-next-line no-unused-vars
+const dotenv = require('dotenv').config(); // This is needed for the dotenv to work in order to keep secrets in .env file
+// eslint-disable-next-line no-unused-vars
 const debug = require('debug')('weathermap');
 
 const Koa = require('koa');
@@ -7,8 +9,8 @@ const fetch = require('node-fetch');
 const cors = require('kcors');
 
 const appId = process.env.APPID || '';
-const mapURI = process.env.MAP_ENDPOINT || "http://api.openweathermap.org/data/2.5";
-const targetCity = process.env.TARGET_CITY || "Helsinki,fi";
+const mapURI = process.env.MAP_ENDPOINT || 'http://api.openweathermap.org/data/2.5';
+const targetCity = process.env.TARGET_CITY || 'Helsinki,fi';
 
 const port = process.env.PORT || 9000;
 
