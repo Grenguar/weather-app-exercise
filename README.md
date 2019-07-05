@@ -31,13 +31,13 @@ There are a few things you must do to get the app up and running. After that the
 
 ### Mandatory
 
-+ Get yourself an API key to make queries in the [openweathermap](http://openweathermap.org/).
+* ++ Get yourself an API key to make queries in the [openweathermap](http://openweathermap.org/).
 
-+ Either run the app locally (using `npm i && npm start`) or move to the next step.
+* ++ Either run the app locally (using `npm i && npm start`) or move to the next step.
 
-+ Add **Dockerfile**'s in the *frontend* and the *backend* directories to run them virtually on any environment having [docker](https://www.docker.com/) installed. It should work by saying e.g. `docker build -t weatherapp_backend . && docker run --rm -i -p 9000:9000 --name weatherapp_backend -t weatherapp_backend`. If it doesn't, remember to check your api key first.
+* ++ Add **Dockerfile**'s in the *frontend* and the *backend* directories to run them virtually on any environment having [docker](https://www.docker.com/) installed. It should work by saying e.g. `docker build -t weatherapp_backend . && docker run --rm -i -p 9000:9000 --name weatherapp_backend -t weatherapp_backend`. If it doesn't, remember to check your api key first.
 
-* Add a **docker-compose.yml** -file connecting the frontend and the backend, enabling running the app in a connected set of containers.
+* ++ Add a **docker-compose.yml** -file connecting the frontend and the backend, enabling running the app in a connected set of containers.
 
 ### Optional (do as many as you like)
 
@@ -45,7 +45,7 @@ There are a few things you must do to get the app up and running. After that the
 
 * The developers are still keen to run the app and its pipeline on their own computers. Share the development files for the container by using volumes, and make sure the containers are started with a command enabling hot reload.
 
-* There are [eslint](http://eslint.org/) errors. Sloppy coding it seems. Please help.
+* ++ There are [eslint](http://eslint.org/) errors. Sloppy coding it seems. Please help.
 
 * The app currently reports the weather only for location defined in the *backend*. Shouldn't it check the browser location and use that as the reference for making a forecast? (tip: [geolocation](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation))
 
