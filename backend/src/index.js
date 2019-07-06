@@ -26,9 +26,12 @@ const fetchWeatherByCityName = async () => {
 };
 
 const fetchWeatherByGeoCoordinates = async (lat, long) => {
+  if (!lat || !long) {
+    return {};
+  }
   const geoEndpoint = `${mapURI}/weather?lat=${lat}&lon=${long}&appid=${appId}`;
   const geoResponse = await fetch(geoEndpoint);
-  return geoResponse ? geoResponse.json() : {};
+  return geoResponse ? geoResponse.json() : { error: 'Error occured', };
 };
 
 router.get(`${BASE_URL}/weather`, async ctx => {
@@ -40,7 +43,7 @@ router.get(`${BASE_URL}/weather`, async ctx => {
 router.get(`${BASE_URL}/weather/:coords`, async ctx => {
   const coordsArray = ctx.params.coords.split(',');
   const weatherData = await fetchWeatherByGeoCoordinates(coordsArray[0], coordsArray[1]);
-  if (weatherData && weatherData.weather[0]) {
+  if (weatherData.weather) {
     ctx.body = {
       weather: weatherData.weather[0],
       country: weatherData.sys.country,
@@ -54,6 +57,8 @@ router.get(`${BASE_URL}/weather/:coords`, async ctx => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(port);
+const server = app.listen(port, () => {
+  console.log(`Server listening on port: ${port}`);
+});
 
-console.log(`App listening on port ${port}`);
+module.exports = server;
