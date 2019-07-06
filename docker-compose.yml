@@ -18,5 +18,5 @@ services:
     depends_on: 
       - weatherapp_backend
     volumes: 
-      - './frontend:/app'
+      - './frontend:/app:rw'
       - '/app/node_modules'

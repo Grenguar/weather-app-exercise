@@ -9,7 +9,7 @@
   "author": "Marko Klemetti <marko.klemetti@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --inline --colors",
+    "start": "node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --inline --colors --hot",
     "lint": "node_modules/.bin/eslint --ext .js --ext .jsx ."
   },
   "dependencies": {
