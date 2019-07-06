@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "DEBUG=weathermap ./node_modules/.bin/nodemon src/index.js",
-    "lint": "eslint src/*.js"
+    "lint": "eslint src/*.js",
+    "test": "./node_modules/mocha/bin/mocha ./src/test/**/*.test.js"
   },
   "dependencies": {
     "debug": "^2.6.3",
@@ -19,6 +20,9 @@
     "node-fetch": "^1.6.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.1.4",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.4.0",
     "eslint-config-standard": "^10.2.1",
