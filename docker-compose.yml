@@ -1,5 +1,6 @@
 version: '3'
 services: 
+
   weatherapp_backend:
     container_name: weatherapp_backend
     build:
@@ -10,6 +11,8 @@ services:
 
   weatherapp_frontend:
     container_name: weatherapp_frontend
+    environment: 
+      - GEO_API_KEY=${GEO_API_KEY} 
     build: 
       context: frontend/
       dockerfile: Dockerfile
@@ -17,6 +20,9 @@ services:
       - "8000:8000"
     depends_on: 
       - weatherapp_backend
+    # command: GEO_API_KEY=${GEO_API_KEY} npm start
+    # command: npm start
+    # command: npm start
     volumes: 
       - './frontend:/app:rw'
       - '/app/node_modules'
