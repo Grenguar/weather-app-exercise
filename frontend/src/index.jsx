@@ -16,7 +16,7 @@ const getWeatherFromApi = async () => {
 };
 
 const getClientGeoLocations = async () => {
-  const weatherUrl = `https://www.googleapis.com/geolocation/v1/geolocate?key=${process.env.GEO_API_KEY}`;
+  const weatherUrl = `https://www.googleapis.com/geolocation/v1/geolocate?key=${geolocationApiKey}`;
   const fetchGeoAPI = await fetch(weatherUrl, {
     method: 'post',
     headers: {
@@ -47,29 +47,33 @@ class Weather extends React.Component {
 
     this.state = {
       icon: '',
-      name: '',
-      country: '',
+      place: 'Loading...',
     };
   }
 
   async componentWillMount() {
-    // const weather = await getWeatherFromApi();
-    // this.setState({ icon: weather.icon.slice(0, -1) });
-    const location = await getClientGeoLocations();
-    const weatherData = await getWeatherFromApiByCoordinates(location.lat, location.long);
-    this.setState({
-      icon: weatherData.weather.icon.slice(0, -1),
-      name: weatherData.name,
-      country: weatherData.country,
-    });
+    try {
+      const location = await getClientGeoLocations();
+      const weatherData = await getWeatherFromApiByCoordinates(location.lat, location.long);
+      this.setState({
+        icon: weatherData.weather.icon.slice(0, -1),
+        place: `${weatherData.name}, ${weatherData.country}`,
+      });
+    } catch (error) {
+      const weather = await getWeatherFromApi();
+      this.setState({
+        icon: weather.icon.slice(0, -1),
+        place: 'Helsinki, FI',
+      });
+    }
   }
 
   render() {
-    const { icon, name, country } = this.state;
+    const { icon, place } = this.state;
 
     return (
       <div className="icon">
-        <h1>{`${name}, ${country}`}</h1>
+        <h1>{`${place}`}</h1>
         { icon && <img alt="weather_state" src={`/img/${icon}.svg`} /> }
       </div>
     );

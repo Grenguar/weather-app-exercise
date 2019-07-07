@@ -1,4 +1,6 @@
-body{
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+body {
   overflow: hidden;
   position: absolute;
   width: 100%;
@@ -6,6 +8,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .icon {
