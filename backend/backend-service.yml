@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp-backend
+  labels:
+    app: weather-app
+    tier: backend
+spec:
+  ports:
+  - name: be
+    port: 9000
+    protocol: TCP
+  selector:
+    app: weather-app
+    tier: backend
