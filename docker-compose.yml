@@ -9,6 +9,9 @@ services:
       dockerfile: Dockerfile
     ports: 
       - "9000:9000"
+    command: npm run-script dev
+    volumes: 
+      - './backend:/app-be:rw'
 
   weatherapp_frontend:
     container_name: weatherapp_frontend
