@@ -5,13 +5,24 @@ gcloud container clusters get-credentials weatherapp-cluster --zone europe-north
 gcloud builds submit --tag gcr.io/$GCLOUD_PROJECT/weatherapp_frontend ./frontend/
 gcloud builds submit --tag gcr.io/$GCLOUD_PROJECT/weatherapp_backend ./backend/
 
-echo "Deploying to Container Engine"
+echo "Setting up environment variables"
 export GCLOUD_PROJECT=$DEVSHELL_PROJECT_ID
 sed -i -e "s/\[GCLOUD_PROJECT\]/$GCLOUD_PROJECT/g" ./backend/backend-deployment.yml
 sed -i -e "s/\[APPID\]/$APPID/g" ./backend/backend-deployment.yml
 sed -i -e "s/\[GCLOUD_PROJECT\]/$GCLOUD_PROJECT/g" ./frontend/frontend-deployment.yml
 sed -i -e "s/\[GEO_API_KEY\]/$GEO_API_KEY/g" ./frontend/frontend-deployment.yml
+ip=""; while [ -z $ip ]; do echo "Waiting for end point..."; ip=$(kubectl get svc weatherapp-backend-service --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$ip" ] && sleep 10; done; echo "End point:" && echo $ip; export ENDPOINT=$ip
+sed -i -e "s/\[ENDPOINT\]/$ENDPOINT/g" ./frontend/frontend-deployment.yml
+
+ip=""; while [ -z $ip ]; do echo "Waiting for end point..."; ip=$(kubectl get svc weatherapp-frontend --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$ip" ] && sleep 10; done; echo "End point:" && echo $ip; export FRONTEND=$ip
+
+
+echo "Deploying to Container Engine"
 kubectl create -f ./backend/backend-deployment.yml
 kubectl create -f ./backend/backend-service.yml
 kubectl create -f ./frontend/frontend-deployment.yml
 kubectl create -f ./frontend/frontend-service.yml
+
+echo "Backend API (for Helsinki): http://$ENDPOINT:9000/api/weather"
+echo "Backend API (for Paris): http://$ENDPOINT:9000/api/weather/48.864716,2.349014"
+echo "Frontend address: http://$FRONTEND"

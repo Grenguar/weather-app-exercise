@@ -22,3 +22,5 @@ spec:
         env:
           - name: GEO_API_KEY
             value: [GEO_API_KEY]
+          - name: ENDPOINT
+            value: http://[ENDPOINT]:9000/api
