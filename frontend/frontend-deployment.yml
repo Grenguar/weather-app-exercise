@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: weatherapp-frontend
+  labels:
+    app: weather-app
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: weather-app
+        tier: frontend
+    spec:
+      containers:
+      - name: weatherapp-frontend
+        image: gcr.io/[GCLOUD_PROJECT]/weatherapp_frontend
+        imagePullPolicy: Always
+        ports:
+        - name: http-server
+          containerPort: 8000
+        env:
+          - name: GEO_API_KEY
+            value: [GEO_API_KEY]
+          - name: ENDPOINT
+            value: http://[ENDPOINT]:9000/api

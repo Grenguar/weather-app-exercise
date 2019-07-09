@@ -1,0 +1,29 @@
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: weatherapp-backend
+  labels:
+    app: weather-app
+spec:
+  selector:
+    matchLabels:
+      run: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: weather-app
+        tier: backend
+        run: backend
+    spec:
+      containers:
+      - name: weatherapp-backend
+        image: gcr.io/[GCLOUD_PROJECT]/weatherapp_backend
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9000
+            protocol: TCP
+        env:
+          - name: APPID
+            value: [APPID]

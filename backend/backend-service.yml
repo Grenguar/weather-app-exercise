@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp-backend-service
+  labels:
+    app: weather-app
+    tier: backend
+    run: backend
+spec:
+  type: LoadBalancer
+  ports:
+  - name: be
+    port: 9000
+    targetPort: 9000
+  selector:
+    app: weather-app
+    tier: backend
+    run: backend
