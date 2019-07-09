@@ -6,12 +6,16 @@ metadata:
   labels:
     app: weather-app
 spec:
+  selector:
+    matchLabels:
+      run: backend
   replicas: 2
   template:
     metadata:
       labels:
         app: weather-app
         tier: backend
+        run: backend
     spec:
       containers:
       - name: weatherapp-backend

@@ -5,6 +5,7 @@ metadata:
   labels:
     app: weather-app
     tier: backend
+    run: backend
 spec:
   ports:
   - name: be
@@ -13,3 +14,4 @@ spec:
   selector:
     app: weather-app
     tier: backend
+    run: backend
