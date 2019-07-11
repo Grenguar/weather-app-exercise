@@ -91,6 +91,7 @@ const createResponseFromForecastData = (forecast) => {
       date: transformTimeStampToDate(timestamp),
       time: transformTimestampToHours(timestamp),
       temp: Math.round(weatherEl.main.temp),
+      weather: weatherEl.weather[0],
     });
   }
   response.forecast = responseWeatherArray;
