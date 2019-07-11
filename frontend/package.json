@@ -13,8 +13,10 @@
     "lint": "node_modules/.bin/eslint --ext .js --ext .jsx ."
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
