@@ -83,3 +83,7 @@ To run with Docker:
   * Run `./k8s_deploy.sh`
   * Wait...
   * In the end you will get the addresses of frontend and backend
+  
+Current deployed version is available:
+ * Backend: http://35.228.45.7:9000/api/forecast/60.192059,24.945831
+ * Frontend: http://35.228.213.34/
