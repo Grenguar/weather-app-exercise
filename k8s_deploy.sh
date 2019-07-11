@@ -21,5 +21,5 @@ ip2=""; while [ -z $ip2 ]; do echo "Waiting for frontend end point..."; ip2=$(ku
 
 
 echo "Backend API (for Helsinki): http://$ENDPOINT:9000/api/weather"
-echo "Backend API (for Paris): http://$ENDPOINT:9000/api/weather/48.864716,2.349014"
+echo "Backend API (for Paris) with forecast: http://$ENDPOINT:9000/api/forecast/48.864716,2.349014"
 echo "Frontend address: http://$FRONTEND"
