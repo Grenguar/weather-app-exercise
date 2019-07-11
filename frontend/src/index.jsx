@@ -1,21 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import uuid from 'uuid/v1';
 
 const baseURL = process.env.ENDPOINT;
 const geolocationApiKey = process.env.GEO_API_KEY;
-
-const getWeatherFromApi = async () => {
-  try {
-    const response = await fetch(`${baseURL}/weather`);
-    return response.json();
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-  }
-  return {};
+const HELSINKI_COORDS = {
+  lat: '60.192059',
+  long: '24.945831',
 };
 
-const getClientGeoLocations = async () => {
+const getClientGeoLocation = async () => {
   const weatherUrl = `https://www.googleapis.com/geolocation/v1/geolocate?key=${geolocationApiKey}`;
   const fetchGeoAPI = await fetch(weatherUrl, {
     method: 'post',
@@ -30,9 +25,9 @@ const getClientGeoLocations = async () => {
   };
 };
 
-const getWeatherFromApiByCoordinates = async (lat, long) => {
+const getForecastFromApi = async (lat, long) => {
   try {
-    const response = await fetch(`${baseURL}/weather/${lat},${long}`);
+    const response = await fetch(`${baseURL}/forecast/${lat},${long}`);
     return response.json();
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -46,39 +41,68 @@ class Weather extends React.Component {
     super(props);
 
     this.state = {
-      icon: '',
       place: 'Loading...',
+      forecast: [],
+      date: '',
     };
   }
 
   async componentWillMount() {
     try {
-      const location = await getClientGeoLocations();
-      const weatherData = await getWeatherFromApiByCoordinates(location.lat, location.long);
+      const location = await getClientGeoLocation();
+      const forecastData = await getForecastFromApi(location.lat, location.long);
       this.setState({
-        icon: weatherData.weather.icon.slice(0, -1),
-        place: `${weatherData.name}, ${weatherData.country}`,
+        forecast: forecastData.forecast,
+        place: `${forecastData.name}, ${forecastData.country}`,
+        date: forecastData.forecast[0].date,
       });
     } catch (error) {
-      const weather = await getWeatherFromApi();
+      const forecastBackup = await getForecastFromApi(HELSINKI_COORDS.lat, HELSINKI_COORDS.long);
       this.setState({
-        icon: weather.icon.slice(0, -1),
-        place: 'Helsinki, FI',
+        forecast: forecastBackup.forecast,
+        place: `${forecastBackup.name}, ${forecastBackup.country}`,
+        date: forecastBackup.forecast[0].date,
       });
     }
   }
 
   render() {
-    const { icon, place } = this.state;
+    const { place, forecast, date } = this.state;
 
     return (
-      <div className="icon">
-        <h1>{`${place}`}</h1>
-        { icon && <img alt="weather_state" src={`/img/${icon}.svg`} /> }
+      <div className="weatherInfo">
+        <div className="header">
+          <div className="header">
+            <h1>{`${place}`}</h1>
+            <h2>{`${date}`}</h2>
+          </div>
+        </div>
+        <div className="container">
+          {forecast.map(el => (
+            <WeatherIcon
+              key={uuid()}
+              time={el.time}
+              temp={el.temp}
+              icon={el.weather.icon.slice(0, -1)}
+            />))}
+        </div>
       </div>
     );
   }
 }
+
+const WeatherIcon = props =>
+  (<div className="icon">
+    <span>{props.time}, +{props.temp}</span>
+    {props.icon && <img alt="weather_state" src={`/img/${props.icon}.svg`} />}
+  </div>
+);
+
+WeatherIcon.propTypes = {
+  time: PropTypes.string.isRequired,
+  temp: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
+};
 
 ReactDOM.render(
   <Weather />,
