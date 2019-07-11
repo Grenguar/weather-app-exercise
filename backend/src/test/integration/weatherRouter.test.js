@@ -54,5 +54,23 @@ mocha.describe('routes : weather', () => {
           done();
         });
     });
+
+    mocha.it('should return forecast for Paris', (done) => {
+      const testCoords = '48.8534100,2.3488000';
+      chai.request(server)
+        .get(`/api/forecast/${testCoords}`)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          const resBody = res.body;
+          resBody.should.include.keys(
+              'name', 'country', 'forecast'
+          );
+          resBody.country.should.equal('FR');
+          resBody.name.should.equal('Paris');
+          done();
+        });
+    });
   });
 });
