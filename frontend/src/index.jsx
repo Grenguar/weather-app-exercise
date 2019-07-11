@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 
 const baseURL = process.env.ENDPOINT;
+const GOOGLE_API_ADDRESS = 'https://www.googleapis.com/geolocation/v1';
 const geolocationApiKey = process.env.GEO_API_KEY;
 const HELSINKI_COORDS = {
   lat: '60.192059',
@@ -11,7 +12,10 @@ const HELSINKI_COORDS = {
 };
 
 const getClientGeoLocation = async () => {
-  const weatherUrl = `https://www.googleapis.com/geolocation/v1/geolocate?key=${geolocationApiKey}`;
+  if (geolocationApiKey === 'empty') {
+    return { HELSINKI_COORDS };
+  }
+  const weatherUrl = `${GOOGLE_API_ADDRESS}/geolocate?key=${geolocationApiKey}`;
   const fetchGeoAPI = await fetch(weatherUrl, {
     method: 'post',
     headers: {
@@ -30,10 +34,8 @@ const getForecastFromApi = async (lat, long) => {
     const response = await fetch(`${baseURL}/forecast/${lat},${long}`);
     return response.json();
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    return {};
   }
-  return {};
 };
 
 class Weather extends React.Component {
@@ -51,18 +53,22 @@ class Weather extends React.Component {
     try {
       const location = await getClientGeoLocation();
       const forecastData = await getForecastFromApi(location.lat, location.long);
-      this.setState({
-        forecast: forecastData.forecast,
-        place: `${forecastData.name}, ${forecastData.country}`,
-        date: forecastData.forecast[0].date,
-      });
+      if (forecastData) {
+        this.setState({
+          forecast: forecastData.forecast,
+          place: `${forecastData.name}, ${forecastData.country}`,
+          date: forecastData.forecast[0].date,
+        });
+      }
     } catch (error) {
       const forecastBackup = await getForecastFromApi(HELSINKI_COORDS.lat, HELSINKI_COORDS.long);
-      this.setState({
-        forecast: forecastBackup.forecast,
-        place: `${forecastBackup.name}, ${forecastBackup.country}`,
-        date: forecastBackup.forecast[0].date,
-      });
+      if (forecastBackup) {
+        this.setState({
+          forecast: forecastBackup.forecast,
+          place: `${forecastBackup.name}, ${forecastBackup.country}`,
+          date: forecastBackup.forecast[0].date,
+        });
+      }
     }
   }
 

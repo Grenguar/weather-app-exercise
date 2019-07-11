@@ -27,6 +27,12 @@ body {
   font-size: 20px;
 }
 
+.icon img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+}
+
 @media screen and (max-width: 767px) {
   .icon {
     width: 50%;
@@ -35,4 +41,18 @@ body {
   .header {
     padding-left: 2%;
   }
+
+  .icon img {
+    max-height: 100px;
+  }
+
+  .icon span {
+    margin-bottom: 10px;
+  }
+}
+
+.icon span {
+  display: block;
+  margin-bottom: 20px;
+  text-align: center;
 }
