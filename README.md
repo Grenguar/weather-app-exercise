@@ -55,3 +55,31 @@ There are a few things you must do to get the app up and running. After that the
 
 
 * Write [ansible](http://docs.ansible.com/ansible/intro.html) playbooks for installing [docker](https://www.docker.com/) and the app itself.
+
+
+## How-to
+
+To run locally:
+ * Go to backend folder: `npm i && APPID=<openweather-key> npm start` -> [endpoint for Helsinki](localhost:9000/api/forecast/60.192059,24.945831)
+ * Go to frontend folder: `npm i && GEO_API_KEY=<googlemapsapi-key> npm start` . For instructions go [here](https://developers.google.com/maps/documentation/javascript/get-api-key) -> [For front end](localhost:8000)
+
+To run with Docker:
+ * Go to backend folder: `docker build -t weatherapp_backend . && docker run --rm -i -p 9000:9000 -e APPID='openweather-key' --name weatherapp_backend -t weatherapp_backend`
+ * Go to frontend folder: `docker build -t weatherapp_frontend . && docker run --rm -i -p 8000:8000 -e GEO_API_KEY=<googlemapsapi-key> --name weatherapp_frontend -t weatherapp_frontend`
+ 
+ To run with Docker-compose and hot reload:
+  * Create .env file with the content shown in .env.example (you will need openweather token and google maps token)
+  * Make sure you have docker-compose installed
+  * From root folder of the project run: `docker-compose up --build`
+  * It should be running with nodemon and webpack-dev-server started to have hot reload
+  
+ To run in GCP:
+  * make sure you have an account in Google Cloud.
+  * Go to APIs & Services. Check that these services are enabled: Geolocation API, Container Registry API, Kubernetes Engine API
+  * Activete cloud shell
+  * Do git clone for this repository
+  * Run `export APPID=<openweather-key>`
+  * Run `export GEO_API_KEY=<googlemapsapi-key>`
+  * Run `./k8s_deploy.sh`
+  * Wait...
+  * In the end you will get the addresses of frontend and backend
