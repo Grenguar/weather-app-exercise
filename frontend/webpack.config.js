@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const fs = require('fs');
 
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,11 +13,6 @@ module.exports = {
     historyApiFallback: true,
     port: 8000,
     host: '0.0.0.0',
-    // https: {
-    //   key: fs.readFileSync('/path/to/server.key'),
-    //   cert: fs.readFileSync('/path/to/server.crt'),
-    //   ca: fs.readFileSync('/path/to/ca.pem'),
-    // },
   },
   devtool: 'eval',
   output: {
