@@ -91,5 +91,5 @@ Current deployed version is available:
  * Frontend: http://35.228.213.34/
 
 ## Known issues
- * Geolocation API is not possible to use without https. That's why, I am using Google Maps API. Sometimes, it show strange location.
+ * Geolocation API is not possible to use without https. That's why, I am using Google Maps API. Sometimes, it shows strange location.
  * While website is working OK, for some reason, I am getting - GET http://35.228.213.34:8000/sockjs-node/info?t=1562854845849 net::ERR_CONNECTION_REFUSED
