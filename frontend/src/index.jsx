@@ -99,7 +99,7 @@ class Weather extends React.Component {
 
 const WeatherIcon = props =>
   (<div className="icon">
-    <span>{props.time}, +{props.temp}</span>
+    <span>{props.time}, +{props.temp}&#8451;</span>
     {props.icon && <img alt="weather_state" src={`/img/${props.icon}.svg`} />}
   </div>
 );
