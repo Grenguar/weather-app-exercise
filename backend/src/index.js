@@ -1,6 +1,4 @@
 // eslint-disable-next-line no-unused-vars
-const dotenv = require('dotenv').config(); // This is needed for the dotenv to work in order to keep secrets in .env file
-// eslint-disable-next-line no-unused-vars
 const debug = require('debug')('weathermap');
 
 const Koa = require('koa');
@@ -17,7 +15,7 @@ const port = process.env.PORT || 9000;
 const app = new Koa();
 const BASE_URL = `/api`;
 
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', ];
 
 app.use(cors());
 
