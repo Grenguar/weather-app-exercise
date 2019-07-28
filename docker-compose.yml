@@ -11,7 +11,8 @@ services:
       - "9000:9000"
     command: npm run-script dev
     volumes: 
-      - './backend:/app-be:rw'
+      - ./backend:/app-be:rw
+      - /app-be/node_modules
 
   weatherapp_frontend:
     container_name: weatherapp_frontend
@@ -25,4 +26,5 @@ services:
     depends_on: 
       - weatherapp_backend
     volumes: 
-      - './frontend:/app:rw'
+      - ./frontend:/app:rw
+      - /app/node_modules

@@ -1,7 +1,8 @@
 
 FROM node:12.5-stretch-slim
 WORKDIR /app-be
-COPY . /app-be
+COPY package*.json ./
 RUN npm install --ignore-optional --silent
+COPY . .
 CMD npm start
 EXPOSE 9000
