@@ -86,10 +86,7 @@ To run with Docker:
   * Wait...
   * In the end you will get the addresses of frontend and backend
   
-Current deployed version is available:
- * Backend: http://35.228.45.7:9000/api/forecast/60.192059,24.945831
- * Frontend: http://35.228.213.34/
 
 ## Known issues
  * Geolocation API is not possible to use without https. That's why, I am using Google Maps API. Sometimes, it shows strange location.
- * While website is working OK, for some reason, I am getting - GET http://35.228.213.34:8000/sockjs-node/info?t=1562854845849 net::ERR_CONNECTION_REFUSED
+ * While website is working OK, for some reason, I am getting - GET <address>/sockjs-node/info?t=1562854845849 net::ERR_CONNECTION_REFUSED
